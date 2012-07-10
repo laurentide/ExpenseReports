@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseReports", "ExpenseReports\ExpenseReports.csproj", "{2683ABB5-CE66-4284-9EE2-69F530D17EE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseReports.Tests", "ExpenseReports.Tests\ExpenseReports.Tests.csproj", "{5DFB3BE7-6811-449A-885E-C2B3E825F184}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2683ABB5-CE66-4284-9EE2-69F530D17EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2683ABB5-CE66-4284-9EE2-69F530D17EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2683ABB5-CE66-4284-9EE2-69F530D17EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2683ABB5-CE66-4284-9EE2-69F530D17EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DFB3BE7-6811-449A-885E-C2B3E825F184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DFB3BE7-6811-449A-885E-C2B3E825F184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DFB3BE7-6811-449A-885E-C2B3E825F184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DFB3BE7-6811-449A-885E-C2B3E825F184}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

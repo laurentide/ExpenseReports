@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExpenseReportModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ExpenseReportModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="ExpenseReportModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblDepartment" EntityType="ExpenseReportModel.Store.tblDepartment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblEmployees" EntityType="ExpenseReportModel.Store.tblEmployees" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblExpenseCategories" EntityType="ExpenseReportModel.Store.tblExpenseCategories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblExpenseDetails" EntityType="ExpenseReportModel.Store.tblExpenseDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblExpenseReports" EntityType="ExpenseReportModel.Store.tblExpenseReports" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblGuests" EntityType="ExpenseReportModel.Store.tblGuests" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblProvinceRates" EntityType="ExpenseReportModel.Store.tblProvinceRates" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblTaxes" EntityType="ExpenseReportModel.Store.tblTaxes" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_tblEmployees_tblDepartment" Association="ExpenseReportModel.Store.FK_tblEmployees_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseDetails_tblExpenseCategories" Association="ExpenseReportModel.Store.FK_tblExpenseDetails_tblExpenseCategories">
+            <End Role="tblExpenseCategories" EntitySet="tblExpenseCategories" />
+            <End Role="tblExpenseDetails" EntitySet="tblExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseDetails_tblExpenseReports" Association="ExpenseReportModel.Store.FK_tblExpenseDetails_tblExpenseReports">
+            <End Role="tblExpenseReports" EntitySet="tblExpenseReports" />
+            <End Role="tblExpenseDetails" EntitySet="tblExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseDetails_tblProvinceRates" Association="ExpenseReportModel.Store.FK_tblExpenseDetails_tblProvinceRates">
+            <End Role="tblProvinceRates" EntitySet="tblProvinceRates" />
+            <End Role="tblExpenseDetails" EntitySet="tblExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseReports_tblEmployees" Association="ExpenseReportModel.Store.FK_tblExpenseReports_tblEmployees">
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+            <End Role="tblExpenseReports" EntitySet="tblExpenseReports" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblEmployees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Extension" Type="nvarchar" MaxLength="30" />
+          <Property Name="ProvinceID" Type="int" />
+          <Property Name="CarAllowance" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblExpenseCategories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Exemples" Type="nvarchar" MaxLength="75" />
+          <Property Name="GL Account" Type="nvarchar" MaxLength="50" />
+          <Property Name="GST" Type="float" />
+          <Property Name="PST" Type="float" />
+        </EntityType>
+        <EntityType Name="tblExpenseDetails">
+          <Key>
+            <PropertyRef Name="ExpenseDetailID" />
+          </Key>
+          <Property Name="ExpenseDetailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseReportID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ExpenseItemAmount" Type="money" />
+          <Property Name="ExpenseItemDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpenseDate" Type="datetime" />
+          <Property Name="Tip" Type="money" />
+          <Property Name="Lodging_Taxes" Type="money" />
+          <Property Name="Non-TaxableExtras" Type="money" />
+          <Property Name="ProvinceID" Type="int" />
+          <Property Name="TaxCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpenseType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Transaction" Type="nvarchar" MaxLength="50" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+          <Property Name="AGST" Type="float" />
+          <Property Name="AQST" Type="float" />
+          <Property Name="Km" Type="float" />
+          <Property Name="Km_Rate" Type="float" />
+        </EntityType>
+        <EntityType Name="tblExpenseReports">
+          <Key>
+            <PropertyRef Name="ExpenseReportID" />
+          </Key>
+          <Property Name="ExpenseReportID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="ExpenseType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpenseDate" Type="datetime" />
+          <Property Name="ExpenseRptName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ExpenseRptDescr" Type="nvarchar(max)" />
+          <Property Name="DateSubmitted" Type="datetime" />
+          <Property Name="AdvanceAmount" Type="money" />
+          <Property Name="DepartmentCharged" Type="nvarchar" MaxLength="30" />
+          <Property Name="BusinessPurpose" Type="nvarchar(max)" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="ExchangeRate" Type="float" />
+          <Property Name="Payment" Type="int" />
+        </EntityType>
+        <EntityType Name="tblGuests">
+          <Key>
+            <PropertyRef Name="GuestID" />
+          </Key>
+          <Property Name="GuestID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseDetailID" Type="int" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblProvinceRates">
+          <Key>
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="ProvinceID" Type="int" Nullable="false" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" />
+          <Property Name="GST" Type="float" />
+          <Property Name="PST" Type="float" />
+        </EntityType>
+        <EntityType Name="tblTaxes">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProvinceID" Type="int" />
+          <Property Name="GST" Type="float" />
+          <Property Name="PST" Type="float" />
+          <Property Name="DateStart" Type="datetime" />
+          <Property Name="DateEnd" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_tblEmployees_tblDepartment">
+          <End Role="tblDepartment" Type="ExpenseReportModel.Store.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblEmployees" Type="ExpenseReportModel.Store.tblEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="tblEmployees">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseDetails_tblExpenseCategories">
+          <End Role="tblExpenseCategories" Type="ExpenseReportModel.Store.tblExpenseCategories" Multiplicity="0..1" />
+          <End Role="tblExpenseDetails" Type="ExpenseReportModel.Store.tblExpenseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExpenseCategories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="tblExpenseDetails">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseDetails_tblExpenseReports">
+          <End Role="tblExpenseReports" Type="ExpenseReportModel.Store.tblExpenseReports" Multiplicity="1" />
+          <End Role="tblExpenseDetails" Type="ExpenseReportModel.Store.tblExpenseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExpenseReports">
+              <PropertyRef Name="ExpenseReportID" />
+            </Principal>
+            <Dependent Role="tblExpenseDetails">
+              <PropertyRef Name="ExpenseReportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseDetails_tblProvinceRates">
+          <End Role="tblProvinceRates" Type="ExpenseReportModel.Store.tblProvinceRates" Multiplicity="0..1" />
+          <End Role="tblExpenseDetails" Type="ExpenseReportModel.Store.tblExpenseDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvinceRates">
+              <PropertyRef Name="ProvinceID" />
+            </Principal>
+            <Dependent Role="tblExpenseDetails">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseReports_tblEmployees">
+          <End Role="tblEmployees" Type="ExpenseReportModel.Store.tblEmployees" Multiplicity="0..1" />
+          <End Role="tblExpenseReports" Type="ExpenseReportModel.Store.tblExpenseReports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEmployees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="tblExpenseReports">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExpenseReportModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ExpenseReportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="ExpenseReportModel.sysdiagram" />
+          <EntitySet Name="tblDepartments" EntityType="ExpenseReportModel.tblDepartment" />
+          <EntitySet Name="tblEmployees" EntityType="ExpenseReportModel.tblEmployee" />
+          <EntitySet Name="tblExpenseCategories" EntityType="ExpenseReportModel.tblExpenseCategory" />
+          <EntitySet Name="tblExpenseDetails" EntityType="ExpenseReportModel.tblExpenseDetail" />
+          <EntitySet Name="tblExpenseReports" EntityType="ExpenseReportModel.tblExpenseReport" />
+          <EntitySet Name="tblGuests" EntityType="ExpenseReportModel.tblGuest" />
+          <EntitySet Name="tblProvinceRates" EntityType="ExpenseReportModel.tblProvinceRate" />
+          <EntitySet Name="tblTaxes" EntityType="ExpenseReportModel.tblTax" />
+          <AssociationSet Name="FK_tblEmployees_tblDepartment" Association="ExpenseReportModel.FK_tblEmployees_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartments" />
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseReports_tblEmployees" Association="ExpenseReportModel.FK_tblExpenseReports_tblEmployees">
+            <End Role="tblEmployees" EntitySet="tblEmployees" />
+            <End Role="tblExpenseReports" EntitySet="tblExpenseReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseDetails_tblExpenseCategories" Association="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseCategories">
+            <End Role="tblExpenseCategories" EntitySet="tblExpenseCategories" />
+            <End Role="tblExpenseDetails" EntitySet="tblExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseDetails_tblExpenseReports" Association="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseReports">
+            <End Role="tblExpenseReports" EntitySet="tblExpenseReports" />
+            <End Role="tblExpenseDetails" EntitySet="tblExpenseDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblExpenseDetails_tblProvinceRates" Association="ExpenseReportModel.FK_tblExpenseDetails_tblProvinceRates">
+            <End Role="tblProvinceRates" EntitySet="tblProvinceRates" />
+            <End Role="tblExpenseDetails" EntitySet="tblExpenseDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="tblEmployees" Relationship="ExpenseReportModel.FK_tblEmployees_tblDepartment" FromRole="tblDepartment" ToRole="tblEmployees" />
+        </EntityType>
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="EmailName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Extension" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="ProvinceID" Type="Int32" />
+          <Property Name="CarAllowance" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblDepartment" Relationship="ExpenseReportModel.FK_tblEmployees_tblDepartment" FromRole="tblEmployees" ToRole="tblDepartment" />
+          <NavigationProperty Name="tblExpenseReports" Relationship="ExpenseReportModel.FK_tblExpenseReports_tblEmployees" FromRole="tblEmployees" ToRole="tblExpenseReports" />
+        </EntityType>
+        <EntityType Name="tblExpenseCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Exemples" Type="String" MaxLength="75" Unicode="true" FixedLength="false" />
+          <Property Name="GL_Account" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="GST" Type="Double" />
+          <Property Name="PST" Type="Double" />
+          <NavigationProperty Name="tblExpenseDetails" Relationship="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseCategories" FromRole="tblExpenseCategories" ToRole="tblExpenseDetails" />
+        </EntityType>
+        <EntityType Name="tblExpenseDetail">
+          <Key>
+            <PropertyRef Name="ExpenseDetailID" />
+          </Key>
+          <Property Name="ExpenseDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseReportID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ExpenseItemAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ExpenseItemDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExpenseDate" Type="DateTime" />
+          <Property Name="Tip" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Lodging_Taxes" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Non_TaxableExtras" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProvinceID" Type="Int32" />
+          <Property Name="TaxCategory" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExpenseType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Transaction" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Currency" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AGST" Type="Double" />
+          <Property Name="AQST" Type="Double" />
+          <Property Name="Km" Type="Double" />
+          <Property Name="Km_Rate" Type="Double" />
+          <NavigationProperty Name="tblExpenseCategory" Relationship="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseCategories" FromRole="tblExpenseDetails" ToRole="tblExpenseCategories" />
+          <NavigationProperty Name="tblExpenseReport" Relationship="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseReports" FromRole="tblExpenseDetails" ToRole="tblExpenseReports" />
+          <NavigationProperty Name="tblProvinceRate" Relationship="ExpenseReportModel.FK_tblExpenseDetails_tblProvinceRates" FromRole="tblExpenseDetails" ToRole="tblProvinceRates" />
+        </EntityType>
+        <EntityType Name="tblExpenseReport">
+          <Key>
+            <PropertyRef Name="ExpenseReportID" />
+          </Key>
+          <Property Name="ExpenseReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="ExpenseType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExpenseDate" Type="DateTime" />
+          <Property Name="ExpenseRptName" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="ExpenseRptDescr" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DateSubmitted" Type="DateTime" />
+          <Property Name="AdvanceAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DepartmentCharged" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessPurpose" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="ExchangeRate" Type="Double" />
+          <Property Name="Payment" Type="Int32" />
+          <NavigationProperty Name="tblEmployee" Relationship="ExpenseReportModel.FK_tblExpenseReports_tblEmployees" FromRole="tblExpenseReports" ToRole="tblEmployees" />
+          <NavigationProperty Name="tblExpenseDetails" Relationship="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseReports" FromRole="tblExpenseReports" ToRole="tblExpenseDetails" />
+        </EntityType>
+        <EntityType Name="tblGuest">
+          <Key>
+            <PropertyRef Name="GuestID" />
+          </Key>
+          <Property Name="GuestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseDetailID" Type="Int32" />
+          <Property Name="Company" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Remarks" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblProvinceRate">
+          <Key>
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="ProvinceID" Type="Int32" Nullable="false" />
+          <Property Name="Province" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="GST" Type="Double" />
+          <Property Name="PST" Type="Double" />
+          <NavigationProperty Name="tblExpenseDetails" Relationship="ExpenseReportModel.FK_tblExpenseDetails_tblProvinceRates" FromRole="tblProvinceRates" ToRole="tblExpenseDetails" />
+        </EntityType>
+        <EntityType Name="tblTax">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProvinceID" Type="Int32" />
+          <Property Name="GST" Type="Double" />
+          <Property Name="PST" Type="Double" />
+          <Property Name="DateStart" Type="DateTime" />
+          <Property Name="DateEnd" Type="DateTime" />
+        </EntityType>
+        <Association Name="FK_tblEmployees_tblDepartment">
+          <End Role="tblDepartment" Type="ExpenseReportModel.tblDepartment" Multiplicity="0..1" />
+          <End Role="tblEmployees" Type="ExpenseReportModel.tblEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="tblEmployees">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseReports_tblEmployees">
+          <End Role="tblEmployees" Type="ExpenseReportModel.tblEmployee" Multiplicity="0..1" />
+          <End Role="tblExpenseReports" Type="ExpenseReportModel.tblExpenseReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEmployees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="tblExpenseReports">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseDetails_tblExpenseCategories">
+          <End Role="tblExpenseCategories" Type="ExpenseReportModel.tblExpenseCategory" Multiplicity="0..1" />
+          <End Role="tblExpenseDetails" Type="ExpenseReportModel.tblExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExpenseCategories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="tblExpenseDetails">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseDetails_tblExpenseReports">
+          <End Role="tblExpenseReports" Type="ExpenseReportModel.tblExpenseReport" Multiplicity="1" />
+          <End Role="tblExpenseDetails" Type="ExpenseReportModel.tblExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblExpenseReports">
+              <PropertyRef Name="ExpenseReportID" />
+            </Principal>
+            <Dependent Role="tblExpenseDetails">
+              <PropertyRef Name="ExpenseReportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblExpenseDetails_tblProvinceRates">
+          <End Role="tblProvinceRates" Type="ExpenseReportModel.tblProvinceRate" Multiplicity="0..1" />
+          <End Role="tblExpenseDetails" Type="ExpenseReportModel.tblExpenseDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProvinceRates">
+              <PropertyRef Name="ProvinceID" />
+            </Principal>
+            <Dependent Role="tblExpenseDetails">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExpenseReportModelStoreContainer" CdmEntityContainer="ExpenseReportEntities">
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="ExpenseReportModel.sysdiagram"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblDepartments"><EntityTypeMapping TypeName="ExpenseReportModel.tblDepartment"><MappingFragment StoreEntitySet="tblDepartment">
+            <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+            <ScalarProperty Name="DepartmentNumber" ColumnName="DepartmentNumber" />
+            <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblEmployees"><EntityTypeMapping TypeName="ExpenseReportModel.tblEmployee"><MappingFragment StoreEntitySet="tblEmployees">
+            <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+            <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="EmailName" ColumnName="EmailName" />
+            <ScalarProperty Name="Extension" ColumnName="Extension" />
+            <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+            <ScalarProperty Name="CarAllowance" ColumnName="CarAllowance" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblExpenseCategories"><EntityTypeMapping TypeName="ExpenseReportModel.tblExpenseCategory"><MappingFragment StoreEntitySet="tblExpenseCategories">
+            <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+            <ScalarProperty Name="Category" ColumnName="Category" />
+            <ScalarProperty Name="Exemples" ColumnName="Exemples" />
+            <ScalarProperty Name="GL_Account" ColumnName="GL Account" />
+            <ScalarProperty Name="GST" ColumnName="GST" />
+            <ScalarProperty Name="PST" ColumnName="PST" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblExpenseDetails"><EntityTypeMapping TypeName="ExpenseReportModel.tblExpenseDetail"><MappingFragment StoreEntitySet="tblExpenseDetails">
+            <ScalarProperty Name="ExpenseDetailID" ColumnName="ExpenseDetailID" />
+            <ScalarProperty Name="ExpenseReportID" ColumnName="ExpenseReportID" />
+            <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+            <ScalarProperty Name="ExpenseItemAmount" ColumnName="ExpenseItemAmount" />
+            <ScalarProperty Name="ExpenseItemDescription" ColumnName="ExpenseItemDescription" />
+            <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+            <ScalarProperty Name="Tip" ColumnName="Tip" />
+            <ScalarProperty Name="Lodging_Taxes" ColumnName="Lodging_Taxes" />
+            <ScalarProperty Name="Non_TaxableExtras" ColumnName="Non-TaxableExtras" />
+            <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+            <ScalarProperty Name="TaxCategory" ColumnName="TaxCategory" />
+            <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
+            <ScalarProperty Name="Transaction" ColumnName="Transaction" />
+            <ScalarProperty Name="Currency" ColumnName="Currency" />
+            <ScalarProperty Name="AGST" ColumnName="AGST" />
+            <ScalarProperty Name="AQST" ColumnName="AQST" />
+            <ScalarProperty Name="Km" ColumnName="Km" />
+            <ScalarProperty Name="Km_Rate" ColumnName="Km_Rate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblExpenseReports"><EntityTypeMapping TypeName="ExpenseReportModel.tblExpenseReport"><MappingFragment StoreEntitySet="tblExpenseReports">
+            <ScalarProperty Name="ExpenseReportID" ColumnName="ExpenseReportID" />
+            <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+            <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
+            <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+            <ScalarProperty Name="ExpenseRptName" ColumnName="ExpenseRptName" />
+            <ScalarProperty Name="ExpenseRptDescr" ColumnName="ExpenseRptDescr" />
+            <ScalarProperty Name="DateSubmitted" ColumnName="DateSubmitted" />
+            <ScalarProperty Name="AdvanceAmount" ColumnName="AdvanceAmount" />
+            <ScalarProperty Name="DepartmentCharged" ColumnName="DepartmentCharged" />
+            <ScalarProperty Name="BusinessPurpose" ColumnName="BusinessPurpose" />
+            <ScalarProperty Name="Paid" ColumnName="Paid" />
+            <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+            <ScalarProperty Name="Payment" ColumnName="Payment" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblGuests"><EntityTypeMapping TypeName="ExpenseReportModel.tblGuest"><MappingFragment StoreEntitySet="tblGuests">
+            <ScalarProperty Name="GuestID" ColumnName="GuestID" />
+            <ScalarProperty Name="ExpenseDetailID" ColumnName="ExpenseDetailID" />
+            <ScalarProperty Name="Company" ColumnName="Company" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblProvinceRates"><EntityTypeMapping TypeName="ExpenseReportModel.tblProvinceRate"><MappingFragment StoreEntitySet="tblProvinceRates">
+            <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+            <ScalarProperty Name="Province" ColumnName="Province" />
+            <ScalarProperty Name="GST" ColumnName="GST" />
+            <ScalarProperty Name="PST" ColumnName="PST" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="tblTaxes"><EntityTypeMapping TypeName="ExpenseReportModel.tblTax"><MappingFragment StoreEntitySet="tblTaxes">
+            <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+            <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+            <ScalarProperty Name="GST" ColumnName="GST" />
+            <ScalarProperty Name="PST" ColumnName="PST" />
+            <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+            <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ExpenseReports">
+        <EntityTypeShape EntityType="ExpenseReportModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblDepartment" Width="1.5" PointX="0.75" PointY="2.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblEmployee" Width="1.5" PointX="3" PointY="2.125" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblExpenseCategory" Width="1.5" PointX="5.25" PointY="7" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblExpenseDetail" Width="1.5" PointX="7.5" PointY="1.125" Height="5.057109375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblExpenseReport" Width="1.5" PointX="5.25" PointY="1.625" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblGuest" Width="1.5" PointX="7.75" PointY="7.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblProvinceRate" Width="1.5" PointX="5.25" PointY="11.125" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpenseReportModel.tblTax" Width="1.5" PointX="9.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="ExpenseReportModel.FK_tblEmployees_tblDepartment" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.6439925130208337" />
+          <ConnectorPoint PointX="3" PointY="3.6439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="ExpenseReportModel.FK_tblExpenseReports_tblEmployees" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="3.5958968098958328" />
+          <ConnectorPoint PointX="5.25" PointY="3.5958968098958328" />
+        </AssociationConnector>
+        <AssociationConnector Association="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseCategories" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="7.34375" />
+          <ConnectorPoint PointX="7.59375" PointY="7.34375" />
+          <ConnectorPoint PointX="7.59375" PointY="6.182109375" />
+        </AssociationConnector>
+        <AssociationConnector Association="ExpenseReportModel.FK_tblExpenseDetails_tblExpenseReports" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="3.576650390625" />
+          <ConnectorPoint PointX="7.5" PointY="3.576650390625" />
+        </AssociationConnector>
+        <AssociationConnector Association="ExpenseReportModel.FK_tblExpenseDetails_tblProvinceRates" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="12.115143229166666" />
+          <ConnectorPoint PointX="7.5624975" PointY="12.115143229166666" />
+          <ConnectorPoint PointX="7.5624975" PointY="6.182109375" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
